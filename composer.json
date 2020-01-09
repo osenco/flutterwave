@@ -1,0 +1,22 @@
+{
+    "name": "osenco/flutterwave",
+    "description": "A simple SDK for integrating to Flutterwave's Rave payment gateway",
+    "type": "library",
+    "keywords": ["rave", "flutterwave", "payment", "transfers", "africa"],
+    "homepage": "https://github.com/Flutterwave/Flutterwave-Rave-PHP-SDK",
+    "autoload": {
+        "psr-4": {
+            "Osen\Flutterwave\\": "src"
+        }
+    },
+    "require": {
+        "flutterwave/rave-php-sdk": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mauko Maunde",
+            "email": "hi@osen.co.ke"
+        }
+    ]
+}

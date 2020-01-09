@@ -1,5 +1,58 @@
 <?php
 
+function getKey($seckey){
+  $hashedkey = md5($seckey);
+  $hashedkeylast12 = substr($hashedkey, -12);
+
+  $seckeyadjusted = str_replace("FLWSECK-", "", $seckey);
+  $seckeyadjustedfirst12 = substr($seckeyadjusted, 0, 12);
+
+  $encryptionkey = $seckeyadjustedfirst12.$hashedkeylast12;
+  return $encryptionkey;
+
+}
+
+function encrypt3Des($data, $key)
+ {
+  $encData = openssl_encrypt($data, 'DES-EDE3', $key, OPENSSL_RAW_DATA);
+        return base64_encode($encData);
+ }
+
+
+function encryptMpesa(){ // set up a function to test card payment.
+    
+    error_reporting(E_ALL);
+    ini_set('display_errors',1);
+    
+    $data = array('PBFPubKey' => 'FLWPUBK-7adb6177bd71dd43c2efa3f1229e3b7f-X',
+    'currency' => 'KES',
+    'country' => 'KE',
+    'payment_type' => 'mpesa',
+    'amount' => '30',
+    'phonenumber' => '054709929300',
+    'firstname' => 'Paul',
+    'lastname' => 'Kagaru',
+    'narration' => 'mpesa/12394484',
+    'email' => 'tester@flutter.co',
+    'IP' => '103.238.105.185',
+    'txRef' => 'MXX-ASC-4578',
+    'is_mpesa' => 1,
+    'device_fingerprint' => '69e6b7f0sb72037aa8428b70fbe03986c');
+    
+    $SecKey = 'FLWSECK-e6db11d1f8a6208de8cb2f94e293450e-X';
+    
+    $key = getKey($SecKey); 
+    
+    $dataReq = json_encode($data);
+    
+    $post_enc = encrypt3Des( $dataReq, $key );
+
+    var_dump($post_enc);
+    
+    
+}
+
+encryptMpesa();
 function send(){
 
 $postdata = array(
